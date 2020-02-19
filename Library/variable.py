@@ -13,9 +13,9 @@ class Var:
     dynamic_data_path = Store.dynamic_data_path
     global_data_path = Store.global_data_path
 
-    def __init__(self, file_name, type):
+    def __init__(self, file_name, file_type):
         self.file_name = file_name
-        if type == "static":
+        if file_type == "static":
             try:
                 self.file_path = self.static_data_path + '/' + file_name
                 with open(self.file_path) as file:
@@ -23,7 +23,7 @@ class Var:
                 allure.attach.file(self.file_path, name=self.file_name, attachment_type=allure.attachment_type.TEXT)
             except Exception as e:
                 print(e)
-        if type == "dynamic":
+        if file_type == "dynamic":
             try:
                 self.file_path = self.dynamic_data_path + '/' + file_name
                 if not os.path.isfile(self.file_path):
@@ -55,6 +55,13 @@ class Var:
         except Exception as e:
             print(e)
             return "None"
+
+    @staticmethod
+    def current(string):
+        if Var.env(string) == "None":
+            return Var.glob(string)
+        else:
+            return Var.env(string)
 
     def static_value_for(self, string) -> str:
         try:

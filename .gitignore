@@ -11,4 +11,4 @@ __pycache__/
 .python-version
 
 # pytest reports
-reports/
+#reports/
