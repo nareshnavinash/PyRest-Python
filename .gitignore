@@ -6,3 +6,9 @@ __pycache__/
 # Distribution
 .DS_Store
 .cache/
+
+# python identifiers
+.python-version
+
+# pytest reports
+reports/
