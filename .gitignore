@@ -1,0 +1,8 @@
+# Pycharm trash
+.coverage
+.idea
+__pycache__/
+
+# Distribution
+.DS_Store
+.cache/
