@@ -29,7 +29,7 @@ def pytest_configure(config):
     This hook is called for every plugin and initial conftest
     file after command line options have been parsed.
     """
-    print("*-* pytest_configure" + config)
+    print("*-* pytest_configure")
     # Configuring the selpy with data path location
     Store.global_data_path = os.path.dirname(
         os.path.abspath(__file__)).replace("/Tests", "") + '/Data/GlobalData/global_data.yml'
@@ -48,7 +48,7 @@ def pytest_sessionstart(session):
     Called after the Session object has been created and
     before performing collection and entering the run test loop.
     """
-    print("*-* pytest_sessionstart" + session)
+    print("*-* pytest_sessionstart")
 
 
 def pytest_sessionfinish(session, exitstatus):
@@ -56,11 +56,11 @@ def pytest_sessionfinish(session, exitstatus):
     Called after whole test run finished, right before
     returning the exit status to the system.
     """
-    print("*-* pytest_sessionfinish" + session + exitstatus)
+    print("*-* pytest_sessionfinish")
 
 
 def pytest_unconfigure(config):
     """
     called before test process is exited.
     """
-    print("*-* pytest_unconfigure" + config)
+    print("*-* pytest_unconfigure")

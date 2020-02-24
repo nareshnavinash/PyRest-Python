@@ -39,6 +39,10 @@ class Var:
                 print(e)
 
     @staticmethod
+    def root_path():
+        return os.path.dirname(os.path.abspath(__file__)).replace("/Library", "")
+
+    @staticmethod
     def env(string):
         try:
             return os.environ[string]
