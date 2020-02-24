@@ -1,3 +1,5 @@
+import json
+import types
 import allure
 import requests
 import yaml
@@ -29,7 +31,7 @@ class Api:
             result = Store.current_response.status_code == status_code
             assert (result is True), "Response status code is not matched, \n" \
                                      "expected: " + status_code + "\n" \
-                                     "actual: " + Store.current_response.status_code
+                                                                  "actual: " + Store.current_response.status_code
 
     @staticmethod
     def create_file_if_not_present(file_path):
@@ -58,6 +60,7 @@ class Api:
             allure.attach(str(Store.current_response.json()), name="Response JSON")
             try:
                 expected_json = yaml_load[key_name]
+                allure.attach(str(expected_json), name="Expected JSON")
                 if Var.env("snap") == "1":
                     yaml_load[key_name] = Store.current_response.json()
                 Api.dump_in_dynamic_variable_file(file_path, yaml_load)
@@ -66,7 +69,47 @@ class Api:
                 if Var.env("snap") == "1":
                     yaml_load[key_name] = Store.current_response.json()
                 Api.dump_in_dynamic_variable_file(file_path, yaml_load)
-            assert (expected_json == Store.current_response.json()), "Expected Json doesn't match with stored json" \
-                                                                     "file \nExpected: " + str(expected_json) + "\n" \
-                                                                     "Actual response: " \
-                                                                     "" + str(Store.current_response.json())
+            assert (Api.json_compare(expected_json, Store.current_response.json())), \
+                "Response doesn't match with stored json \nExpected: " + str(expected_json) + \
+                "\nActual response: " + str(Store.current_response.json())
+
+    @staticmethod
+    def ignore_keys(keys):
+        Store.ignore_keys = keys.split(",")
+
+    @staticmethod
+    def json_compare(json1, json2):
+        ignore_keys = Store.ignore_keys
+        allure.attach(str(ignore_keys), name="Keys Ignored while comparing")
+        d1_filtered = dict((k, v) for k, v in json1.items() if k not in ignore_keys)
+        d2_filtered = dict((k, v) for k, v in json2.items() if k not in ignore_keys)
+        for k, v in d1_filtered.items():
+            if v == "$notnull":
+                assert (d2_filtered[k] != "Null"), "Key value " + k + " is null in response"
+                d1_filtered[k] = d2_filtered[k]
+            elif v == "$null":
+                assert (d2_filtered[k] == "Null"), "Key value " + k + " is not null in response"
+                d1_filtered[k] = d2_filtered[k]
+            elif v == "$array":
+                assert (type(d2_filtered[k]) in (tuple, list) is True), "Key " + k + " is not in array format"
+                d1_filtered[k] = d2_filtered[k]
+            elif v == "$json":
+                try:
+                    json.loads(d2_filtered[k])
+                    result = True
+                except ValueError as e:
+                    result = False
+                assert (result is True), "Key " + k + " is not in json format"
+                d1_filtered[k] = d2_filtered[k]
+            elif v == "$boolean":
+                result = type(d2_filtered[k]) is bool
+                assert (result is True), "Key " + k + " is not in boolean format"
+                d1_filtered[k] = d2_filtered[k]
+            elif v == "$number":
+                result = isinstance(d2_filtered[k], (int, float, complex)) and not isinstance(d2_filtered[k], bool)
+                assert (result is True), "Key " + k + " is not in number format"
+                d1_filtered[k] = d2_filtered[k]
+            elif v == "$string":
+                result = isinstance(d2_filtered[k], str)
+                assert (result is True), "Key " + k + " is not in string format"
+        return d1_filtered == d2_filtered

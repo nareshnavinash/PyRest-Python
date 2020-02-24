@@ -9,9 +9,9 @@ def before_each():
     print('*-* Before each INITIALIZATION')
     try:
         yield
-        # After each test case taking screen shots form the available drivers
     except Exception as e:
         print(e)
+    Store.reset_all_variables()
     print('*-* After each END')
 
 

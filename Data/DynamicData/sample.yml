@@ -1,3 +1,6 @@
 created_from: snap mode in pyrest framework
 test_sample_get_request_001:
   name: Naresh
+  age: 20
+test_sample_get_request_002:
+  name: $notnull
