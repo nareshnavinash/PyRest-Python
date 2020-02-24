@@ -1,5 +1,5 @@
 import json
-import types
+import re
 import allure
 import requests
 import yaml
@@ -112,4 +112,10 @@ class Api:
             elif v == "$string":
                 result = isinstance(d2_filtered[k], str)
                 assert (result is True), "Key " + k + " is not in string format"
+                d1_filtered[k] = d2_filtered[k]
+            elif v == "$uuid":
+                uuid_pattern = re.compile(r'^[\da-f]{8}-([\da-f]{4}-){3}[\da-f]{12}$', re.IGNORECASE)
+                result = uuid_pattern.match(d2_filtered[k])
+                assert (result is True), "Key " + k + " is not in uuid format"
+                d1_filtered[k] = d2_filtered[k]
         return d1_filtered == d2_filtered
