@@ -1,6 +1,9 @@
 created_from: snap mode in pyrest framework
 test_sample_get_request_001:
-  name: Naresh
   age: 20
+  name: Naresh
 test_sample_get_request_002:
   name: $notnull
+test_sample_get_request_003:
+  image: https://avatars0.githubusercontent.com/u/27988169?s=460&v=4
+  name: Naresh

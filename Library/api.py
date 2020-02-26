@@ -119,3 +119,11 @@ class Api:
                 assert (result is True), "Key " + k + " is not in uuid format"
                 d1_filtered[k] = d2_filtered[k]
         return d1_filtered == d2_filtered
+
+    @staticmethod
+    def get_params_from_response(path):
+        path_array = path.split(",")
+        result = Store.current_response.json()
+        for key in path_array:
+            result = result[key]
+        return result
