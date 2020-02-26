@@ -98,6 +98,7 @@ class Api:
                     json.loads(d2_filtered[k])
                     result = True
                 except ValueError as e:
+                    print(e)
                     result = False
                 assert (result is True), "Key " + k + " is not in json format"
                 d1_filtered[k] = d2_filtered[k]

@@ -104,8 +104,8 @@ class Var:
             else:
                 with allure.step("Verifying the key: " + str(key)):
                     assert (str(file_value) == str(value)), "Value for the Key:- " + str(key) + ", Mismatches\n" \
-                                                  + "File Value:- " + str(file_value) \
-                                                  + "\nDisplayed Value:- " + str(value) \
-                                                  + "\nFile used for validation is:" + self.file_name \
-                                                  + "\nTo change the Dynamic file value run the suite with" \
-                                                  + "\nsnap=1 pytest"
+                                                            + "File Value:- " + str(file_value) \
+                                                            + "\nDisplayed Value:- " + str(value) \
+                                                            + "\nFile used for validation is:" + self.file_name \
+                                                            + "\nTo change the Dynamic file value run the suite with" \
+                                                            + "\nsnap=1 pytest"
