@@ -70,6 +70,11 @@ allure serve reports/allure
 ## Reports
 For better illustration on the testcases, allure reports has been integrated. Allure reports can also be integrated with jenkins to get a dashboard view. Apart from allure, pytest's default reporting such as html file has been added to the `reports/` folder.
 
+If there is a failure while comparing the images, allure report will have all the files attached to it. The difference between the two images is generated in run time and attached to the allure report for our referenece.
+
+![alt text](Library/diff_image.png)
+ 
+
 ## Jenkins Integration with Docker images
 Get any of the linux with python docker image as the slaves in jenkins and use the same for executing the UI automation with this framework (Sample docker image - `https://hub.docker.com/_/python`). From the jenkins bash Execute the following to get the testcases to run,
 
