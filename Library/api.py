@@ -126,5 +126,14 @@ class Api:
         path_array = path.split(",")
         result = Store.current_response.json()
         for key in path_array:
-            result = result[key]
+            actual_key = Api.actual_key(key)
+            result = result[actual_key]
+        return result
+
+    @staticmethod
+    def actual_key(key):
+        try:
+            result = int(key)
+        except:
+            result = key
         return result
