@@ -307,6 +307,22 @@ Img.is_equal_with_tolerance("Naresh", "downloaded_file", 0.5)
 ```
 The above code will validate the images with 0.5 percent tolerance level.
 
+### Detailing the snap mode
+
+By following the above mentioned folder structure and code format, the snap mode implementation becomes easier. Consider we have a test data YAML file with multiple keys in it. If we run the suite in snap mode, the values for the keys will be changed only for the cases for which test cases are failing, remaining values will be retained in the YAML file.
+
+In case of Image comparison, if snap mode is invoked and the image files are not same, the source image file will be replaced with the downloaded file.
+
+**Incase if we use custom markers in the test data file ($notnull, $string, etc.,), on using snap mode, all the markers will be overridden by the response values. Hence it is recommended to distinguish between the test cases with custom pytest markers**
+
+Have two markers, `snap` and `plain` and all the snap marked test cases should not carry any custom markers in the test data file and all the plain marked test cases should have custom marked test data files. While invoking the snap mode one has to run using the snap marker.
+
+```
+snap=1 pytest -v -m snap
+``` 
+This will ensure all the custom created markers are retained in the test data files.
+
+**It seems possible to handle the above shortcomings of snap mode in the json validation, which I have in todo pipeline**
  
 ## Data sets:
 

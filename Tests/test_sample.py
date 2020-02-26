@@ -29,7 +29,7 @@ def test_sample_get_request_002():
 @allure.feature("Sample get request with image URL")
 @allure.severity('Critical')
 @pytest.mark.regression  # Custom pytest marker to run the test cases with ease on demand
-@pytest.mark.plain  # Custom pytest marker to run the test cases with ease on demand
+@pytest.mark.snap  # Custom pytest marker to run the test cases with ease on demand
 def test_sample_get_request_003():
     Api.get("/image")
     Api.verify_response_code(200)
