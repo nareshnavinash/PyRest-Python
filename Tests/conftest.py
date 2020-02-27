@@ -1,7 +1,7 @@
 import os
 import pytest
 import glob
-from Library.store import Store
+from snapyrest.store import Store
 
 
 @pytest.fixture(autouse=True)
@@ -36,6 +36,7 @@ def pytest_configure(config):
     Store.static_data_path = os.path.dirname(os.path.abspath(__file__)).replace("/Tests", "") + '/Data/TestData/'
     Store.dynamic_data_path = os.path.dirname(os.path.abspath(__file__)).replace("/Tests", "") + '/Data/DynamicData/'
     root_dir = os.path.dirname(os.path.abspath(__file__)).replace("/Tests", "")
+    Store.root_path = root_dir
     # Clearing the old screenshots from the location.
     config_path = root_dir + '/reports/images/*.png'
     for CleanUp in glob.glob(config_path):

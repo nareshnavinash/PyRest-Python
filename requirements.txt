@@ -12,3 +12,4 @@ pyyaml==5.3
 flake8==3.7.9
 imgcompare==2.0.1
 diffimg==0.2.3
+snapyrest==0.1.1

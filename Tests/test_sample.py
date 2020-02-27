@@ -1,7 +1,7 @@
 import allure
 import pytest
-from Library.api import Api
-from Library.images import Img
+from snapyrest.api import Api
+from snapyrest.images import Img
 
 
 @allure.feature("Sample get request")
