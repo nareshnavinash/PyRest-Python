@@ -3,6 +3,7 @@ PyRest is an automation framework to test REST API endpoints. This framework inc
 
 Snapshot mode is added even for the image file comparison.
 
+This project uses a In-House package which is published in PyPi for more details look into [SnaPyRest Package](https://pypi.org/project/snapyrest/)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 [![Made with Python](https://img.shields.io/badge/Made%20with-Python-yellow.svg)](https://www.python.org/)
@@ -134,8 +135,8 @@ addopts = -rsxX
 ```
 import allure
 import pytest
-from Library.api import Api
-from Library.images import Img
+from snapyrest.api import Api
+from snapyrest.images import Img
 ```
 
 * Do set the URL on which you want your automation suite to run in the `/Data/GlobalData/global_data.yml` file. You can also set add other project level data in this file and then call those by using `Var` method.
