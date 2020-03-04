@@ -25,6 +25,7 @@ This project uses a In-House package which is published in PyPi for more details
 * Multi Thread run
 * Snap Mode to replace the response data as the test data
 * Static code analyser
+* Reports e-mailer using shovel
 
 ## Setup
 * Clone this repository
@@ -345,6 +346,22 @@ flake8
 
 currently there are `0` vulnerabilities with this project.
 
+
+## Shovel
+
+Shovel has been added to mail the report status once the run is completed. This will be useful once we integrate with CI and helpful in debugging which commit has caused the actual problem. For more details you could visit the [Shovel file](Shovel/reports.py). (Code refactoring is yet to be done in that file). In Jenkins you could get the following values as environment variables.
+
+```
+$BUILD_URL #Directly fetched from ENV variable
+$GIT_URL #Directly fetched from ENV variable
+$GIT_BRANCH #Directly fetched from ENV variable
+$GIT_COMMIT #Directly fetched from ENV variable
+$GIT_COMMITER_EMAIL=$(git --no-pager show -s --format='%ae' $GIT_COMMIT)
+$REPORTS_EMAIL_RECEIVERS="nareshnavinash@gmail.com;nareshsekar@zoho.com" #Or can be taken from parameterized build
+
+#Run the rake task by,
+shovel reports.email $REPORTS_EMAIL_RECEIVERS $BUILD_URL $GIT_BRANCH $GIT_COMMIT $GIT_COMMITER_EMAIL
+```
 
 ## Built With
 
